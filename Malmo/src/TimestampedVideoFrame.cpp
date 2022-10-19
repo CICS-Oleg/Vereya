@@ -58,6 +58,7 @@ namespace malmo
         modelViewMatrix = std::vector<float>(16, 0.0);
 
         // First extract the positional information from the header:
+	//std::cout <<"frame constructor "<< message.data.size()<<std::endl;
         uint32_t * pInt = reinterpret_cast<uint32_t*>(&(message.data[0]));
         this->xPos = ntoh_float(*pInt); pInt++;
         this->yPos = ntoh_float(*pInt); pInt++;
@@ -102,6 +103,11 @@ namespace malmo
         default:
             throw std::invalid_argument("Unknown transform");
         }
+	for(auto p : this->calibrationMatrix){//std::cout << p << "\t";}
+        //std::cout<<std::endl;
+	//std::cout<<this->pixels.size()<<std::endl;
+	//std::cout << (int)this->pixels[0] <<' '<< (int)this->pixels[1]<<' '<< (int)this->pixels[2] << std::endl;
+	
     }
 
     bool TimestampedVideoFrame::operator==(const TimestampedVideoFrame& other) const
@@ -113,6 +119,7 @@ namespace malmo
     std::ostream& operator<<(std::ostream& os, const TimestampedVideoFrame& tsvidframe)
     {
         os << "TimestampedVideoFrame: " << to_simple_string(tsvidframe.timestamp) << ", type " << tsvidframe.frametype << ", " << tsvidframe.width << " x " << tsvidframe.height << " x " << tsvidframe.channels << ", (" << tsvidframe.xPos << "," << tsvidframe.yPos << "," << tsvidframe.zPos << " - yaw:" << tsvidframe.yaw << ", pitch:" << tsvidframe.pitch << ")";
+	//std::cout<<"!!! 1"<<std::endl;
         return os;
     }
 
@@ -131,6 +138,7 @@ namespace malmo
         default:
             break;
         }
+	//std::cout<<"!!! 2"<<std::endl;
         return os;
     }
 
