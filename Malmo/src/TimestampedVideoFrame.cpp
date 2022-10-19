@@ -103,10 +103,6 @@ namespace malmo
         default:
             throw std::invalid_argument("Unknown transform");
         }
-	for(auto p : this->calibrationMatrix){//std::cout << p << "\t";}
-        //std::cout<<std::endl;
-	//std::cout<<this->pixels.size()<<std::endl;
-	//std::cout << (int)this->pixels[0] <<' '<< (int)this->pixels[1]<<' '<< (int)this->pixels[2] << std::endl;
 	
     }
 

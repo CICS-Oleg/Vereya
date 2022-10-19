@@ -128,15 +128,11 @@ namespace malmo
 
     void AgentHost::startMission(const MissionSpec& mission, const MissionRecordSpec& mission_record)
     {
-        {ClientPool client_pool;
-        client_pool.add(ClientInfo("127.0.0.1")); 
-	//std::cout<< 000 <<std::endl;}
-
+       
 	ClientPool client_pool;
         client_pool.add(ClientInfo("127.0.0.1"));
 
         startMission(mission, client_pool, mission_record, 0, "");
-        //std::cout<< 999 <<std::endl; 
     }
 
     bool AgentHost::killClient(const ClientInfo& client)
@@ -163,9 +159,7 @@ namespace malmo
 
     void AgentHost::startMission(const MissionSpec& mission, const ClientPool& client_pool, const MissionRecordSpec& mission_record, int role, std::string unique_experiment_id)
     {
-        {std::call_once(test_schemas_flag, testSchemasCompatible);
-
-	//std::cout << 111 << std::endl;
+        std::call_once(test_schemas_flag, testSchemasCompatible);
 		
         if (role < 0 || role >= mission.getNumberOfAgents())
         {
@@ -174,12 +168,9 @@ namespace malmo
             else
                 throw MissionException("Role " + std::to_string(role) + " is invalid for this multi-agent mission - must be in range 0-" + std::to_string(mission.getNumberOfAgents() - 1) + ".", MissionException::MISSION_BAD_ROLE_REQUEST);
         }
-
-	//std::cout << 222 << std::endl;
 		
         if( mission.isVideoRequested( role ) ) 
         {
-	    //std::cout << 333 << std::endl;
 		
             if( mission.getVideoWidth( role ) % 4 )
                 throw MissionException("Video width must be divisible by 4.", MissionException::MISSION_BAD_VIDEO_REQUEST);
@@ -194,13 +185,8 @@ namespace malmo
         }
 
         // Once initializeOurServers has completed, we MUST call AgentHost::close() before bailing out of this method with an exception.
-	//std::cout << 444 << std::endl;
 		
         initializeOurServers( mission, mission_record, role, unique_experiment_id );
-
-        {ClientPool pool;
-	pool.add(ClientInfo("127.0.0.1"));
-	//std::cout<< 000 <<std::endl;}
 
         ClientPool pool = client_pool;
         if (role == 0)
@@ -209,7 +195,6 @@ namespace malmo
             // If we are part of a multi-agent mission, our mission should have been started before any of the others are attempted.
             // This means we are in a position to reserve clients in the client pool:
             ClientPool reservedAgents = reserveClients(client_pool, mission.getNumberOfAgents());
-	    //std::cout << 555 << std::endl;
 		
             if (reservedAgents.clients.size() != mission.getNumberOfAgents())
             {
@@ -228,13 +213,11 @@ namespace malmo
             // this is a multi-agent mission and we are not the agent that connects to the client with the integrated server
             // so we need to ask the clients in the client pool until we find it
             findServer(pool);
-	    //std::cout << 666 << std::endl;
 		
         }
         
         // work through the client pool until we find a client to run our mission for us
         findClient( pool );
-	//std::cout << 777 << std::endl;
 		
 
         this->world_state.clear();
@@ -245,8 +228,6 @@ namespace malmo
             std::ofstream missionInitXML(this->current_mission_record->getMissionInitPath());
             missionInitXML << this->current_mission_init->getAsXML(true);
         }
-	//std::cout << 888 << std::endl;}
-	//std::cout << 999 << std::endl;
 		
     }
     
@@ -862,22 +843,12 @@ namespace malmo
 //std::cout << 111100 << std::endl;
             this->world_state.video_frames_colourmap.push_back( boost::make_shared<TimestampedVideoFrame>( *message ) );
         } else {
-//std::cout << 111110 << std::endl;
-	//std::cout << message->width << std::endl;
-	//std::cout << message->height << std::endl;
-	//std::cout << message->channels << std::endl;
-	//std::cout << message->pixels.size() << std::endl;
-	//std::cout << (int)message->pixels[0] <<' '<< (int)message->pixels[1]<<' '<< (int)message->pixels[2] << std::endl;
-	for(auto p : message->calibrationMatrix){//std::cout << p << "\t";}
-        //std::cout<<std::endl;
 	auto v = boost::make_shared<TimestampedVideoFrame>( *message );
-//std::cout << 20000 << std::endl;
             this->world_state.video_frames.emplace_back( v );
-//std::cout << 30000 << std::endl;
+
         }
         
         this->world_state.number_of_video_frames_since_last_state++;
-	//std::cout << 111000 << std::endl;
     }
     
     void AgentHost::onReward(TimestampedString message)
