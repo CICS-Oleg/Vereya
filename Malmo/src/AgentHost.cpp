@@ -829,22 +829,18 @@ namespace malmo
         LOGSIMPLE(LOG_FINE, "processing video message");	
 
         if (this->video_policy == VideoPolicy::LATEST_FRAME_ONLY) {
-	//std::cout << 0000001 << std::endl;
             if (message->frametype == TimestampedVideoFrame::COLOUR_MAP) {
                 this->world_state.video_frames_colourmap.clear();
-		//std::cout << 100000 << std::endl;
             } else {
                 this->world_state.video_frames.clear();
-		//std::cout << 110000 << std::endl;
             }
         }
 
         if (message->frametype == TimestampedVideoFrame::COLOUR_MAP) {
-//std::cout << 111100 << std::endl;
             this->world_state.video_frames_colourmap.push_back( boost::make_shared<TimestampedVideoFrame>( *message ) );
         } else {
-	auto v = boost::make_shared<TimestampedVideoFrame>( *message );
-            this->world_state.video_frames.emplace_back( v );
+	//auto v = boost::make_shared<TimestampedVideoFrame>( *message );
+            this->world_state.video_frames.emplace_back( message );
 
         }
         

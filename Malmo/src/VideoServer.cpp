@@ -145,7 +145,7 @@ namespace malmo
             // one when the same port has been reassigned. Could throw here but chose to silently ignore since very rare.
             return;
         }
-	//std::cout<<"Before frame constructor " << message.data.size()<<std::endl;
+	
         auto frame = std::make_shared<TimestampedVideoFrame>(this->width, this->height, this->channels, message, this->transform, this->frametype);
         this->received_frames++;
         this->handle_frame(frame); 
