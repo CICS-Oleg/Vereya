@@ -826,7 +826,7 @@ namespace malmo
     void AgentHost::onVideo(std::shared_ptr<TimestampedVideoFrame> message)
     {
         boost::lock_guard<boost::mutex> scope_guard(this->world_state_mutex);
-        LOGSIMPLE(LOG_FINE, "processing video message");	
+        LOGSIMPLE(LOG_FINE, "processing video message");
 
         if (this->video_policy == VideoPolicy::LATEST_FRAME_ONLY) {
             if (message->frametype == TimestampedVideoFrame::COLOUR_MAP) {
