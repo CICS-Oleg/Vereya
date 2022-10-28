@@ -132,7 +132,6 @@ namespace malmo
         default:
             break;
         }
-	//std::cout<<"!!! 2"<<std::endl;
         return os;
     }
 
