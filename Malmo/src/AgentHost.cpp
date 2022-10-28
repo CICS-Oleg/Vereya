@@ -228,7 +228,6 @@ namespace malmo
             std::ofstream missionInitXML(this->current_mission_record->getMissionInitPath());
             missionInitXML << this->current_mission_init->getAsXML(true);
         }
-		
     }
     
     void AgentHost::initializeOurServers(const MissionSpec& mission, const MissionRecordSpec& mission_record, int role, std::string unique_experiment_id)
