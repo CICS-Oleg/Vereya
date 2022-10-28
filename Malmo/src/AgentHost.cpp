@@ -837,7 +837,7 @@ namespace malmo
         }
 
         if (message->frametype == TimestampedVideoFrame::COLOUR_MAP) {
-            this->world_state.video_frames_colourmap.push_back( boost::make_shared<TimestampedVideoFrame>( *message ) );
+            this->world_state.video_frames_colourmap.push_back( message );
         } else {
 	//auto v = boost::make_shared<TimestampedVideoFrame>( *message );
             this->world_state.video_frames.emplace_back( message );
