@@ -128,7 +128,6 @@ namespace malmo
 
     void AgentHost::startMission(const MissionSpec& mission, const MissionRecordSpec& mission_record)
     {
-       
 	ClientPool client_pool;
         client_pool.add(ClientInfo("127.0.0.1"));
 
