@@ -128,7 +128,6 @@ namespace malmo
 
     void AgentHost::startMission(const MissionSpec& mission, const MissionRecordSpec& mission_record)
     {
-       
 	ClientPool client_pool;
         client_pool.add(ClientInfo("127.0.0.1"));
 
@@ -160,7 +159,6 @@ namespace malmo
     void AgentHost::startMission(const MissionSpec& mission, const ClientPool& client_pool, const MissionRecordSpec& mission_record, int role, std::string unique_experiment_id)
     {
         std::call_once(test_schemas_flag, testSchemasCompatible);
-		
         if (role < 0 || role >= mission.getNumberOfAgents())
         {
             if (mission.getNumberOfAgents() == 1)
@@ -195,7 +193,6 @@ namespace malmo
             // If we are part of a multi-agent mission, our mission should have been started before any of the others are attempted.
             // This means we are in a position to reserve clients in the client pool:
             ClientPool reservedAgents = reserveClients(client_pool, mission.getNumberOfAgents());
-		
             if (reservedAgents.clients.size() != mission.getNumberOfAgents())
             {
                 // Not enough clients available - go no further.
@@ -228,7 +225,6 @@ namespace malmo
             std::ofstream missionInitXML(this->current_mission_record->getMissionInitPath());
             missionInitXML << this->current_mission_init->getAsXML(true);
         }
-		
     }
     
     void AgentHost::initializeOurServers(const MissionSpec& mission, const MissionRecordSpec& mission_record, int role, std::string unique_experiment_id)
@@ -826,7 +822,7 @@ namespace malmo
     void AgentHost::onVideo(std::shared_ptr<TimestampedVideoFrame> message)
     {
         boost::lock_guard<boost::mutex> scope_guard(this->world_state_mutex);
-        LOGSIMPLE(LOG_FINE, "processing video message");	
+        LOGSIMPLE(LOG_FINE, "processing video message");
 
         if (this->video_policy == VideoPolicy::LATEST_FRAME_ONLY) {
             if (message->frametype == TimestampedVideoFrame::COLOUR_MAP) {
@@ -839,9 +835,7 @@ namespace malmo
         if (message->frametype == TimestampedVideoFrame::COLOUR_MAP) {
             this->world_state.video_frames_colourmap.push_back( message );
         } else {
-	//auto v = boost::make_shared<TimestampedVideoFrame>( *message );
             this->world_state.video_frames.emplace_back( message );
-
         }
         
         this->world_state.number_of_video_frames_since_last_state++;
