@@ -156,7 +156,6 @@ namespace malmo
                 if (writer->write(*frame)){
                     this->queued_frames++;
                 }
-		//std::cout<<"after writer " << frame->pixels.size()<<std::endl;
             }
         }
     }
