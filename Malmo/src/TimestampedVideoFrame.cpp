@@ -58,7 +58,6 @@ namespace malmo
         modelViewMatrix = std::vector<float>(16, 0.0);
 
         // First extract the positional information from the header:
-	//std::cout <<"frame constructor "<< message.data.size()<<std::endl;
         uint32_t * pInt = reinterpret_cast<uint32_t*>(&(message.data[0]));
         this->xPos = ntoh_float(*pInt); pInt++;
         this->yPos = ntoh_float(*pInt); pInt++;
