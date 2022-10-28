@@ -114,7 +114,6 @@ namespace malmo
     std::ostream& operator<<(std::ostream& os, const TimestampedVideoFrame& tsvidframe)
     {
         os << "TimestampedVideoFrame: " << to_simple_string(tsvidframe.timestamp) << ", type " << tsvidframe.frametype << ", " << tsvidframe.width << " x " << tsvidframe.height << " x " << tsvidframe.channels << ", (" << tsvidframe.xPos << "," << tsvidframe.yPos << "," << tsvidframe.zPos << " - yaw:" << tsvidframe.yaw << ", pitch:" << tsvidframe.pitch << ")";
-	//std::cout<<"!!! 1"<<std::endl;
         return os;
     }
 
